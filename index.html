@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Экспертный и консалтинговый центр | Buenos Aires</title>
+  <style>
+    :root {
+      --navy: #0b1d3a;
+      --navy-light: #132849;
+      --gold: #c49a3c;
+      --gold-light: #e2bb6a;
+      --white: #ffffff;
+      --gray-light: #f4f6fa;
+      --gray: #8896a8;
+      --text: #1e2d42;
+      --border: #d6dce8;
+      --success: #2e7d52;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      box-shadow: 0 2px 20px rgba(0,0,0,.35);
+    }
+    .nav-logo {
+      font-size: 15px; color: var(--gold-light); font-weight: 700;
+      letter-spacing: .04em; text-transform: uppercase;
+      cursor: pointer; line-height: 1.25;
+    }
+    .nav-logo span { display: block; font-size: 10px; color: var(--gray); font-weight: 400; letter-spacing: .1em; text-transform: uppercase; margin-top: 1px; }
+    .nav-links { display: flex; gap: 4px; align-items: center; }
+    .nav-links a, .nav-drop > span {
+      color: #c8d4e8; font-size: 13px; text-decoration: none;
+      padding: 8px 14px; border-radius: 4px; cursor: pointer;
+      transition: color .2s, background .2s;
+      font-family: 'Arial', sans-serif; letter-spacing: .02em;
+    }
+    .nav-links a:hover, .nav-drop:hover > span { color: var(--gold-light); background: rgba(255,255,255,.06); }
+    .nav-links a.active { color: var(--gold-light); }
+    .nav-drop { position: relative; }
+    .nav-drop-menu {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: var(--navy-light); min-width: 280px;
+      border-radius: 6px; box-shadow: 0 8px 32px rgba(0,0,0,.4);
+      padding: 8px 0; margin-top: 4px;
+    }
+    .nav-drop:hover .nav-drop-menu { display: block; }
+    .nav-drop-menu a {
+      display: block; padding: 10px 20px; color: #c8d4e8;
+      font-size: 13px; text-decoration: none; font-family: 'Arial', sans-serif;
+      transition: background .15s, color .15s;
+    }
+    .nav-drop-menu a:hover { background: rgba(196,154,60,.12); color: var(--gold-light); }
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .burger span { width: 24px; height: 2px; background: var(--gold-light); border-radius: 2px; transition: .3s; }
+
+    /* ── PAGES ── */
+    .page { display: none; padding-top: 68px; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%);
+      color: var(--white); padding: 100px 48px 80px;
+      display: flex; align-items: center; gap: 60px;
+      min-height: 520px;
+    }
+    .hero-content { max-width: 640px; }
+    .hero-badge {
+      display: inline-block; background: rgba(196,154,60,.2);
+      border: 1px solid rgba(196,154,60,.4); color: var(--gold-light);
+      font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 20px; margin-bottom: 24px;
+      font-family: 'Arial', sans-serif;
+    }
+    .hero h1 { font-size: clamp(28px, 4vw, 48px); line-height: 1.2; margin-bottom: 20px; font-weight: 400; }
+    .hero h1 strong { color: var(--gold-light); font-weight: 700; }
+    .hero p { font-size: 17px; color: #b8c8de; margin-bottom: 36px; max-width: 520px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 14px 32px; border: none; border-radius: 4px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      font-family: 'Arial', sans-serif; letter-spacing: .04em;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--gold-light);
+      border: 1px solid rgba(196,154,60,.5);
+      padding: 13px 28px; border-radius: 4px;
+      font-size: 14px; cursor: pointer; font-family: 'Arial', sans-serif;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color: var(--gold-light); background: rgba(196,154,60,.1); }
+
+    .hero-stats {
+      display: flex; flex-direction: column; gap: 32px;
+      border-left: 1px solid rgba(196,154,60,.3); padding-left: 60px;
+      flex-shrink: 0;
+    }
+    .stat-item .num { font-size: 40px; font-weight: 700; color: var(--gold-light); line-height: 1; }
+    .stat-item .label { font-size: 12px; color: #8896a8; font-family: 'Arial', sans-serif; margin-top: 4px; letter-spacing: .06em; text-transform: uppercase; }
+
+    /* ── SECTIONS ── */
+    section { padding: 80px 48px; }
+    section.gray { background: var(--gray-light); }
+    .section-label {
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); font-family: 'Arial', sans-serif; margin-bottom: 10px;
+    }
+    h2 { font-size: clamp(22px, 3vw, 36px); font-weight: 400; color: var(--navy); margin-bottom: 16px; line-height: 1.25; }
+    h2 strong { color: var(--gold); font-weight: 700; }
+    .section-intro { font-size: 16px; color: #5a6a7e; max-width: 680px; margin-bottom: 48px; }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      background: #f0f4f8; border-left: 4px solid var(--gold);
+      padding: 16px 24px; border-radius: 0 6px 6px 0; margin: 32px 0;
+      font-size: 13px; color: #4a5568; font-family: 'Arial', sans-serif; line-height: 1.6;
+    }
+    .disclaimer strong { color: var(--navy); }
+
+    /* ── SERVICES GRID ── */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; }
+
+    .service-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .service-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.12); transform: translateY(-2px); }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      padding: 28px; color: var(--white);
+    }
+    .card-icon { font-size: 32px; margin-bottom: 14px; }
+    .card-header h3 { font-size: 20px; font-weight: 600; color: var(--gold-light); margin-bottom: 8px; }
+    .card-header p { font-size: 13px; color: #8ca8c8; line-height: 1.6; font-family: 'Arial', sans-serif; }
+
+    .card-body { padding: 24px 28px; }
+    .service-list { list-style: none; margin-bottom: 20px; }
+    .service-list li {
+      padding: 7px 0; font-size: 14px; color: var(--text);
+      border-bottom: 1px solid #edf0f5;
+      display: flex; gap: 10px; align-items: flex-start;
+      font-family: 'Arial', sans-serif;
+    }
+    .service-list li:last-child { border-bottom: none; }
+    .service-list li::before { content: '→'; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+
+    /* ── CONSULT FORM ── */
+    .consult-toggle {
+      width: 100%; background: var(--navy);
+      color: var(--white); border: none; padding: 13px 20px;
+      border-radius: 4px; cursor: pointer; font-size: 14px;
+      font-family: 'Arial', sans-serif; font-weight: 600;
+      letter-spacing: .04em; transition: background .2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .consult-toggle:hover { background: var(--navy-light); }
+    .consult-toggle .arrow { transition: transform .3s; }
+    .consult-toggle.open .arrow { transform: rotate(180deg); }
+
+    .consult-form {
+      display: none; margin-top: 16px;
+      background: var(--gray-light); border-radius: 6px;
+      padding: 20px; border: 1px solid var(--border);
+    }
+    .consult-form.open { display: block; }
+    .form-row { margin-bottom: 14px; }
+    .form-row label { display: block; font-size: 12px; font-family: 'Arial', sans-serif;
+      color: #5a6a7e; margin-bottom: 5px; letter-spacing: .04em; text-transform: uppercase; }
+    .form-row input, .form-row textarea, .form-row select {
+      width: 100%; padding: 10px 14px; border: 1px solid var(--border);
+      border-radius: 4px; font-size: 14px; font-family: 'Arial', sans-serif;
+      color: var(--text); background: var(--white);
+      transition: border-color .2s;
+    }
+    .form-row input:focus, .form-row textarea:focus, .form-row select:focus {
+      outline: none; border-color: var(--gold);
+    }
+    .form-row textarea { resize: vertical; min-height: 90px; }
+    .form-privacy {
+      font-size: 11px; color: #8896a8; font-family: 'Arial', sans-serif;
+      margin-bottom: 14px; line-height: 1.5;
+    }
+    .btn-submit {
+      width: 100%; background: var(--gold); color: var(--navy);
+      border: none; padding: 13px; border-radius: 4px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      font-family: 'Arial', sans-serif; letter-spacing: .06em;
+      text-transform: uppercase; transition: background .2s;
+    }
+    .btn-submit:hover { background: var(--gold-light); }
+    .form-success {
+      display: none; text-align: center; padding: 20px;
+      color: var(--success); font-family: 'Arial', sans-serif; font-size: 14px;
+    }
+    .form-success .icon { font-size: 28px; margin-bottom: 8px; }
+
+    /* ── ASSOC CARDS ── */
+    .assoc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 28px; margin-top: 40px; }
+    .assoc-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 36px; cursor: pointer;
+      transition: box-shadow .2s, transform .2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .assoc-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.12); transform: translateY(-2px); }
+    .assoc-card .tag {
+      display: inline-block; font-size: 10px; letter-spacing: .12em;
+      text-transform: uppercase; font-family: 'Arial', sans-serif;
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 16px;
+    }
+    .tag-russia { background: #fff3e0; color: #b45309; border: 1px solid #f5d89e; }
+    .tag-arga { background: #e8f0fe; color: #1a56a8; border: 1px solid #b8d0f5; }
+    .assoc-card h3 { font-size: 22px; font-weight: 600; color: var(--navy); margin-bottom: 12px; line-height: 1.3; }
+    .assoc-card p { font-size: 14px; color: #5a6a7e; font-family: 'Arial', sans-serif; line-height: 1.7; margin-bottom: 20px; }
+    .assoc-card .link-btn {
+      color: var(--gold); font-family: 'Arial', sans-serif; font-size: 13px;
+      font-weight: 700; text-decoration: none; letter-spacing: .04em;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+
+    /* ── CONTACTS ── */
+    .contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 36px; }
+    .contact-item { background: var(--white); padding: 28px; border-radius: 8px; border: 1px solid var(--border); }
+    .contact-item .icon { font-size: 24px; margin-bottom: 12px; }
+    .contact-item h4 { font-size: 14px; font-family: 'Arial', sans-serif; font-weight: 700; color: var(--navy); margin-bottom: 6px; letter-spacing: .04em; text-transform: uppercase; }
+    .contact-item p, .contact-item a { font-size: 15px; color: #4a5568; font-family: 'Arial', sans-serif; text-decoration: none; }
+    .contact-item a:hover { color: var(--gold); }
+
+    /* ── ASSOC PAGE ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%);
+      padding: 80px 48px 60px; color: var(--white);
+    }
+    .page-hero .breadcrumb { font-size: 12px; color: #8896a8; font-family: 'Arial', sans-serif; margin-bottom: 20px; cursor: pointer; }
+    .page-hero .breadcrumb:hover { color: var(--gold-light); }
+    .page-hero h1 { font-size: clamp(24px, 3.5vw, 42px); font-weight: 400; margin-bottom: 16px; line-height: 1.25; }
+    .page-hero h1 strong { color: var(--gold-light); }
+    .page-hero p { font-size: 16px; color: #b8c8de; max-width: 640px; }
+
+    .mission-block { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    @media(max-width:768px) { .mission-block { grid-template-columns: 1fr; } }
+    .mission-text h3 { font-size: 22px; font-weight: 600; color: var(--navy); margin-bottom: 14px; }
+    .mission-text p { font-size: 15px; color: #4a5568; font-family: 'Arial', sans-serif; margin-bottom: 16px; line-height: 1.75; }
+
+    .goals-list { list-style: none; }
+    .goals-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+      font-family: 'Arial', sans-serif; font-size: 14px; color: var(--text);
+    }
+    .goals-list li:last-child { border-bottom: none; }
+    .goal-num { width: 28px; height: 28px; background: var(--gold); color: var(--navy);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+
+    /* Bulletin board */
+    .board-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+    }
+    .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .board-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 6px;
+      padding: 20px; font-family: 'Arial', sans-serif;
+    }
+    .board-card .cat { font-size: 10px; text-transform: uppercase; letter-spacing: .1em;
+      background: #e8f0fe; color: #1a56a8; padding: 3px 10px; border-radius: 10px;
+      display: inline-block; margin-bottom: 10px; font-weight: 700; }
+    .board-card .cat.work { background: #e8f5e9; color: #2e7d52; }
+    .board-card .cat.service { background: #fff3e0; color: #b45309; }
+    .board-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .board-card p { font-size: 13px; color: #5a6a7e; line-height: 1.6; margin-bottom: 10px; }
+    .board-card .meta { font-size: 11px; color: #8896a8; }
+
+    .events-list { list-style: none; }
+    .event-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+    .event-item:last-child { border-bottom: none; }
+    .event-date { background: var(--navy); color: var(--gold-light); padding: 8px 14px;
+      border-radius: 4px; text-align: center; flex-shrink: 0; font-family: 'Arial', sans-serif; }
+    .event-date .day { font-size: 24px; font-weight: 700; line-height: 1; }
+    .event-date .month { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+    .event-info h4 { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+    .event-info p { font-size: 14px; color: #5a6a7e; font-family: 'Arial', sans-serif; }
+    .event-info .soon { font-size: 11px; color: var(--gold); font-family: 'Arial', sans-serif; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+
+    /* ARGA page specifics */
+    .arga-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin: 36px 0; }
+    .arga-stat { background: var(--white); border: 1px solid var(--border); border-radius: 6px;
+      padding: 24px; text-align: center; }
+    .arga-stat .num { font-size: 36px; font-weight: 700; color: var(--navy); }
+    .arga-stat .lbl { font-size: 12px; color: #8896a8; font-family: 'Arial', sans-serif;
+      text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+    .arga-un-badge {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: #e8f0fe; border: 1px solid #b8d0f5;
+      border-radius: 6px; padding: 14px 20px; margin: 16px 0;
+      font-family: 'Arial', sans-serif;
+    }
+    .arga-un-badge .un-icon { font-size: 28px; }
+    .arga-un-badge .un-text { font-size: 13px; color: #1a3a6b; line-height: 1.4; }
+    .arga-un-badge .un-text strong { display: block; font-size: 15px; }
+
+    .expertise-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 28px; }
+    .expertise-item { background: var(--navy); color: var(--white); border-radius: 6px; padding: 20px; }
+    .expertise-item .ei-icon { font-size: 22px; margin-bottom: 10px; }
+    .expertise-item h4 { font-size: 14px; font-weight: 700; color: var(--gold-light); margin-bottom: 6px; }
+    .expertise-item p { font-size: 12px; color: #8ca8c8; font-family: 'Arial', sans-serif; line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: #8896a8; padding: 48px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;
+    }
+    footer .foot-logo { font-size: 15px; font-weight: 700; color: var(--gold-light); margin-bottom: 10px; letter-spacing: .04em; }
+    footer p { font-size: 12px; line-height: 1.7; font-family: 'Arial', sans-serif; }
+    footer h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #aab8cc; margin-bottom: 14px; font-family: 'Arial', sans-serif; font-weight: 700; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 8px; }
+    footer ul li a { color: #8896a8; font-size: 13px; text-decoration: none; font-family: 'Arial', sans-serif; transition: color .2s; }
+    footer ul li a:hover { color: var(--gold-light); }
+    .foot-bottom {
+      background: #060f1e; color: #4a5568; text-align: center;
+      padding: 16px 48px; font-size: 11px; font-family: 'Arial', sans-serif;
+      letter-spacing: .04em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: var(--navy); padding: 16px 24px 24px; gap: 2px; z-index: 999; }
+      .burger { display: flex; }
+      .hero { flex-direction: column; padding: 60px 24px 50px; }
+      .hero-stats { border-left: none; border-top: 1px solid rgba(196,154,60,.3); padding-left: 0; padding-top: 32px; flex-direction: row; flex-wrap: wrap; gap: 24px; }
+      section { padding: 56px 24px; }
+      .page-hero { padding: 60px 24px 40px; }
+      footer { padding: 40px 24px; }
+      .foot-bottom { padding: 16px 24px; }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .assoc-grid { grid-template-columns: 1fr; }
+      .arga-stat-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* UTILITY */
+    .divider { height: 1px; background: var(--border); margin: 8px 0; }
+    .mt16 { margin-top: 16px; }
+    .mt32 { margin-top: 32px; }
+    .text-gold { color: var(--gold); }
+    .inline-link { color: var(--gold); cursor: pointer; text-decoration: underline; font-family: 'Arial', sans-serif; font-size: 14px; }
+
+    /* ── ICONS ── */
+    .ico { width: 1em; height: 1em; display: inline-block; vertical-align: -0.14em; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .chev { width: .7em; height: .7em; display: inline-block; vertical-align: .05em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+<defs>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19V10M10 19V5M16 19V13M21 19H3"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M2 21v-1a6 6 0 0 1 12 0v1"/><circle cx="17" cy="8" r="2.3"/><path d="M15.4 21v-1a4.4 4.4 0 0 0-1.3-3.1"/></symbol>
+<symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v9M9 10v9M15 10v9M19 10v9M3 21h18M3 10h18"/></symbol>
+<symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M5 8l-3 6a4 4 0 0 0 8 0l-3-6Zm14 0l-3 6a4 4 0 0 0 8 0l-3-6ZM5 8h4M16 8h4M8 21h8"/></symbol>
+<symbol id="i-passport" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M14 8h4M14 11h4M6 16h12M6 19h8"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.6 5.9 20.5l1.2-6.6L2.3 9.3l6.6-.8L12 2.5Z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 4h16v11H8l-4 4Z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16 9.5"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 11 13M21 3l-7 18-4-8-8-4 19-6Z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3Z"/></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24"><path d="M3 13l7-2 5-8 2 1-3 8 5 3v2l-6-1-3 5-2-.5.7-5.3L3 15Z"/></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></symbol>
+<symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1M9 11h6M9 15h6"/></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3 11.2V16h6v-1.8A6 6 0 0 0 12 3Z"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-document" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+</defs>
+</svg>
+
+<!-- ═══════════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    Экспертный и<br>консалтинговый центр
+    <span>Buenos Aires · Argentina</span>
+  </div>
+
+  <div class="nav-links" id="navLinks">
+    <a onclick="showPage('home')" id="nav-home">Главная</a>
+
+    <div class="nav-drop">
+      <span>Услуги <svg class="chev"><use href="#i-chevron"/></svg></span>
+      <div class="nav-drop-menu">
+        <a onclick="showPage('services'); scrollToService('biz')"><svg class="ico"><use href="#i-chart"/></svg> Бизнес-консалтинг</a>
+        <a onclick="showPage('services'); scrollToService('rel')"><svg class="ico"><use href="#i-users"/></svg> Government Relations (GR)</a>
+        <a onclick="showPage('services'); scrollToService('gov')"><svg class="ico"><use href="#i-bank"/></svg> Государственные закупки</a>
+        <a onclick="showPage('services'); scrollToService('legal')"><svg class="ico"><use href="#i-scale"/></svg> Юридический консалтинг</a>
+        <a onclick="showPage('services'); scrollToService('migr')"><svg class="ico"><use href="#i-passport"/></svg> Миграционный консалтинг</a>
+      </div>
+    </div>
+
+    <div class="nav-drop">
+      <span>Ассоциации <svg class="chev"><use href="#i-chevron"/></svg></span>
+      <div class="nav-drop-menu">
+        <a onclick="showPage('assoc-ru')"><svg class="ico"><use href="#i-star"/></svg> Ассоциация русскоязычного сообщества</a>
+        <a onclick="showPage('assoc-arga')"><svg class="ico"><use href="#i-shield"/></svg> АРГА — Международная правозащитная</a>
+      </div>
+    </div>
+
+    <a onclick="showPage('contacts')" id="nav-contacts">Контакты</a>
+  </div>
+
+  <div class="burger" id="burger" onclick="toggleBurger()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Буэнос-Айрес · Аргентина</div>
+      <h1><strong>Экспертный и консалтинговый центр</strong> в Аргентине и Меркосур</h1>
+      <p>Профессиональное юридическое, бизнес- и миграционное сопровождение в Аргентине. Все юридические услуги оказываются лицензированными адвокатами, внесёнными в реестр CPACF.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('services')">Перечень услуг</button>
+        <button class="btn-outline" onclick="showPage('contacts')">Связаться с нами</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="num">5+</div>
+        <div class="label">Направлений консалтинга</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">2</div>
+        <div class="label">Партнёрские ассоциации</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">CPACF</div>
+        <div class="label">Лицензированные адвокаты</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="section-label">О нас</div>
+    <h2>Ваш <strong>надёжный партнёр</strong> в Аргентине</h2>
+    <p class="section-intro">Экспертный и консалтинговый центр объединяет лицензированных специалистов в области права, бизнеса и международных отношений. Мы работаем в Буэнос-Айресе и сопровождаем клиентов по всей территории Аргентины и стран Меркосур.</p>
+
+    <div class="disclaimer">
+      <strong><svg class="ico"><use href="#i-scale"/></svg> Важное уведомление:</strong> Вся юридическая консультационная деятельность осуществляется исключительно адвокатами, зарегистрированными в <strong>Colegio Público de Abogados de la Capital Federal (CPACF)</strong> или в соответствующих провинциальных коллегиях адвокатов Аргентины, в соответствии с требованиями Ley 23.187 и действующим законодательством. Информация, размещённая на настоящем сайте, носит общий информационный характер и не является юридической консультацией.
+    </div>
+  </section>
+
+  <!-- SERVICES OVERVIEW -->
+  <section class="gray">
+    <div class="section-label">Направления работы</div>
+    <h2>Комплексное <strong>сопровождение</strong></h2>
+    <p class="section-intro">Пять направлений консалтинга — от регистрации бизнеса до защиты прав в международных инстанциях.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:24px;text-align:center;cursor:pointer" onclick="showPage('services');scrollToService('biz')">
+        <div style="font-size:32px;margin-bottom:10px"><svg class="ico"><use href="#i-chart"/></svg></div>
+        <div style="font-size:14px;font-weight:700;color:var(--navy);font-family:Arial,sans-serif">Бизнес-консалтинг</div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:24px;text-align:center;cursor:pointer" onclick="showPage('services');scrollToService('rel')">
+        <div style="font-size:32px;margin-bottom:10px"><svg class="ico"><use href="#i-users"/></svg></div>
+        <div style="font-size:14px;font-weight:700;color:var(--navy);font-family:Arial,sans-serif">Government Relations (GR)</div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:24px;text-align:center;cursor:pointer" onclick="showPage('services');scrollToService('gov')">
+        <div style="font-size:32px;margin-bottom:10px"><svg class="ico"><use href="#i-bank"/></svg></div>
+        <div style="font-size:14px;font-weight:700;color:var(--navy);font-family:Arial,sans-serif">Госзакупки</div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:24px;text-align:center;cursor:pointer" onclick="showPage('services');scrollToService('legal')">
+        <div style="font-size:32px;margin-bottom:10px"><svg class="ico"><use href="#i-scale"/></svg></div>
+        <div style="font-size:14px;font-weight:700;color:var(--navy);font-family:Arial,sans-serif">Юридический консалтинг</div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:24px;text-align:center;cursor:pointer" onclick="showPage('services');scrollToService('migr')">
+        <div style="font-size:32px;margin-bottom:10px"><svg class="ico"><use href="#i-passport"/></svg></div>
+        <div style="font-size:14px;font-weight:700;color:var(--navy);font-family:Arial,sans-serif">Миграционный консалтинг</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASSOCIATIONS PREVIEW -->
+  <section>
+    <div class="section-label">Партнёрские ассоциации</div>
+    <h2>Сообщество и <strong>защита прав</strong></h2>
+    <p class="section-intro">Центр работает в партнёрстве с двумя ключевыми ассоциациями, представляющими русскоязычное сообщество и международное правозащитное движение.</p>
+
+    <div class="assoc-grid">
+      <div class="assoc-card" onclick="showPage('assoc-ru')">
+        <span class="tag tag-russia"><svg class="ico"><use href="#i-star"/></svg> Первая в Латинской Америке</span>
+        <h3>Ассоциация русскоязычного сообщества в Аргентине</h3>
+        <p>Первая в Латинской Америке ассоциация русскоязычных жителей Аргентины. Интеграция, культурный обмен, взаимная поддержка и доска объявлений для тех, кто обустраивает жизнь в новой стране.</p>
+        <span class="link-btn">Узнать подробнее →</span>
+      </div>
+      <div class="assoc-card" onclick="showPage('assoc-arga')">
+        <span class="tag tag-arga"><svg class="ico"><use href="#i-shield"/></svg> Консультант ООН</span>
+        <h3>АРГА — Международная правозащитная ассоциация</h3>
+        <p>Международная организация ARGA (Asylum Research & Global Assistance) — эксперт-консультант ООН (UN Secretariat Registration ID: 1232417). Широкая сеть экспертов в области права по всему миру.</p>
+        <span class="link-btn">Узнать подробнее →</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: SERVICES
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-services">
+
+  <div class="page-hero">
+    <div class="breadcrumb" onclick="showPage('home')">← Главная</div>
+    <h1>Наши <strong>услуги</strong></h1>
+    <p>Профессиональный консалтинг по пяти направлениям. Все юридические консультации и услуги оказываются лицензированными адвокатами, зарегистрированными в CPACF и региональных коллегиях.</p>
+  </div>
+
+  <section>
+    <div class="disclaimer">
+      <strong><svg class="ico"><use href="#i-scale"/></svg> Правовое уведомление:</strong> Все юридические консультации, составление документов и процессуальное сопровождение осуществляются исключительно адвокатами, имеющими действующую лицензию и зарегистрированными в <strong>Colegio Público de Abogados de la Capital Federal (CPACF)</strong> или в соответствующей провинциальной коллегии адвокатов. Деятельность ведётся в соответствии с Ley 23.187 (Estatuto del Abogado) и действующим законодательством Аргентинской Республики. Размещённые на сайте материалы носят информационный характер и не заменяют профессиональную юридическую консультацию.
+    </div>
+
+    <div class="services-grid mt32">
+
+      <!-- 1. БИЗНЕС-КОНСАЛТИНГ -->
+      <div class="service-card" id="card-biz">
+        <div class="card-header">
+          <div class="card-icon"><svg class="ico"><use href="#i-chart"/></svg></div>
+          <h3>Бизнес-консалтинг</h3>
+          <p>Комплексное сопровождение сделок с бизнесом, оценка активов, подготовка к продаже и поддержка развития предприятий в Аргентине и за рубежом.</p>
+        </div>
+        <div class="card-body">
+          <ul class="service-list">
+            <li>Оценка рыночной стоимости бизнеса при покупке и продаже</li>
+            <li>Структурирование сделок по продаже долей и активов компании</li>
+            <li>Юридическое и нотариальное сопровождение купли-продажи бизнеса</li>
+            <li>Подготовка бизнеса к продаже (due diligence, предпродажный аудит)</li>
+            <li>Сопровождение развития и трансформации бизнеса</li>
+            <li>Международные релокации бизнеса и холдинговые структуры</li>
+          </ul>
+          <button class="consult-toggle" onclick="toggleForm(this)">
+            <svg class="ico"><use href="#i-send"/></svg> Отправить задачу &nbsp;<span class="arrow"><svg class="chev"><use href="#i-chevron"/></svg></span>
+          </button>
+          <div class="consult-form">
+            <div class="form-row">
+              <label>Ваше имя</label>
+              <input type="text" placeholder="Имя и фамилия" />
+            </div>
+            <div class="form-row">
+              <label>Контакт (телефон / email)</label>
+              <input type="text" placeholder="Как с вами связаться" />
+            </div>
+            <div class="form-row">
+              <label>Опишите вашу ситуацию</label>
+              <textarea placeholder="Кратко изложите вашу задачу в сфере бизнес-консалтинга…"></textarea>
+            </div>
+            <p class="form-privacy">Ваши данные конфиденциальны. Обрабатываются в соответствии с Ley 25.326 о защите персональных данных.</p>
+            <button class="btn-submit" onclick="submitForm(this)"><svg class="ico"><use href="#i-search"/></svg> ЗАПРОСИТЬ РЕШЕНИЕ</button>
+            <div class="form-success"><div class="icon"><svg class="ico"><use href="#i-check"/></svg></div>Открылся WhatsApp с заявкой — нажмите «Отправить», чтобы завершить обращение.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. РАЗВИТИЕ ОТНОШЕНИЙ -->
+      <div class="service-card" id="card-rel">
+        <div class="card-header">
+          <div class="card-icon"><svg class="ico"><use href="#i-users"/></svg></div>
+          <h3>GR-консалтинг (Government Relations)</h3>
+          <p>Выстраивание взаимодействия с государственными институтами, участие в программах поддержки бизнеса и развитие международных партнёрств в регионе Меркосур.</p>
+        </div>
+        <div class="card-body">
+          <ul class="service-list">
+            <li>Коммуникация с органами государственной и муниципальной власти</li>
+            <li>Содействие в участии в государственных и муниципальных программах поддержки</li>
+            <li>Развитие международных деловых отношений со странами Меркосур (Бразилия, Уругвай, Парагвай, Боливия)</li>
+            <li>Представительство интересов компании перед регуляторными органами</li>
+            <li>Сопровождение переговорных процессов с иностранными партнёрами</li>
+          </ul>
+          <button class="consult-toggle" onclick="toggleForm(this)">
+            <svg class="ico"><use href="#i-send"/></svg> Отправить задачу &nbsp;<span class="arrow"><svg class="chev"><use href="#i-chevron"/></svg></span>
+          </button>
+          <div class="consult-form">
+            <div class="form-row">
+              <label>Ваше имя</label>
+              <input type="text" placeholder="Имя и фамилия" />
+            </div>
+            <div class="form-row">
+              <label>Контакт (телефон / email)</label>
+              <input type="text" placeholder="Как с вами связаться" />
+            </div>
+            <div class="form-row">
+              <label>Опишите вашу ситуацию</label>
+              <textarea placeholder="Кратко опишите задачу…"></textarea>
+            </div>
+            <p class="form-privacy">Ваши данные конфиденциальны. Обрабатываются в соответствии с Ley 25.326.</p>
+            <button class="btn-submit" onclick="submitForm(this)"><svg class="ico"><use href="#i-search"/></svg> ЗАПРОСИТЬ РЕШЕНИЕ</button>
+            <div class="form-success"><div class="icon"><svg class="ico"><use href="#i-check"/></svg></div>Открылся WhatsApp с заявкой — нажмите «Отправить», чтобы завершить обращение.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. ГОСЗАКУПКИ -->
+      <div class="service-card" id="card-gov">
+        <div class="card-header">
+          <div class="card-icon"><svg class="ico"><use href="#i-bank"/></svg></div>
+          <h3>Консалтинг по участию в госзакупках</h3>
+          <p>Полный цикл поддержки при выходе на государственные торги и тендеры в Аргентине и странах Меркосур — от подготовки до защиты интересов в спорных ситуациях.</p>
+        </div>
+        <div class="card-body">
+          <ul class="service-list">
+            <li>Анализ требований и подготовка к участию в торгах (licitaciones públicas)</li>
+            <li>Регистрация поставщика в государственных реестрах (SIPRO, RUPE и аналоги)</li>
+            <li>Подготовка полного пакета тендерной документации</li>
+            <li>Разработка технико-экономических обоснований (TEC) и коммерческих предложений</li>
+            <li>Сопровождение участия в торгах на всех этапах</li>
+            <li>Подготовка и направление жалоб и апелляций в случае неправомерного проигрыша</li>
+            <li>Защита интересов участника в контрольных и надзорных органах</li>
+          </ul>
+          <button class="consult-toggle" onclick="toggleForm(this)">
+            <svg class="ico"><use href="#i-send"/></svg> Отправить задачу &nbsp;<span class="arrow"><svg class="chev"><use href="#i-chevron"/></svg></span>
+          </button>
+          <div class="consult-form">
+            <div class="form-row">
+              <label>Ваше имя</label>
+              <input type="text" placeholder="Имя и фамилия" />
+            </div>
+            <div class="form-row">
+              <label>Контакт (телефон / email)</label>
+              <input type="text" placeholder="Как с вами связаться" />
+            </div>
+            <div class="form-row">
+              <label>Интересующий вид торгов / отрасль</label>
+              <input type="text" placeholder="Например: строительство, IT, медикаменты…" />
+            </div>
+            <div class="form-row">
+              <label>Опишите вашу ситуацию</label>
+              <textarea placeholder="Кратко опишите задачу…"></textarea>
+            </div>
+            <p class="form-privacy">Ваши данные конфиденциальны. Обрабатываются в соответствии с Ley 25.326.</p>
+            <button class="btn-submit" onclick="submitForm(this)"><svg class="ico"><use href="#i-search"/></svg> ЗАПРОСИТЬ РЕШЕНИЕ</button>
+            <div class="form-success"><div class="icon"><svg class="ico"><use href="#i-check"/></svg></div>Открылся WhatsApp с заявкой — нажмите «Отправить», чтобы завершить обращение.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. ЮРИДИЧЕСКИЙ КОНСАЛТИНГ -->
+      <div class="service-card" id="card-legal">
+        <div class="card-header">
+          <div class="card-icon"><svg class="ico"><use href="#i-scale"/></svg></div>
+          <h3>Юридический консалтинг</h3>
+          <p>Комплексное правовое сопровождение бизнеса и физических лиц в Аргентине. Услуги оказываются лицензированными адвокатами.</p>
+        </div>
+        <div class="card-body">
+          <ul class="service-list">
+            <li>Регистрация компаний всех организационно-правовых форм (SA, SRL, SAS, sucursal и др.) с учётом распределения долей участников</li>
+            <li>Юридическое сопровождение корпоративных изменений и реструктуризации</li>
+            <li>Разрешение арбитражных споров и трудовых конфликтов (despidos, accidentes laborales)</li>
+            <li>Составление, проверка и сопровождение коммерческих договоров</li>
+            <li>Защита интеллектуальной собственности и торговых знаков (INPI)</li>
+            <li>Юридическое сопровождение операций с недвижимостью</li>
+            <li>Правовая поддержка по вопросам налогообложения совместно с сертифицированным contador</li>
+          </ul>
+          <div style="background:#fff8e8;border:1px solid #f0d080;border-radius:4px;padding:12px 16px;margin-bottom:16px;font-family:Arial,sans-serif;font-size:12px;color:#7a5a10;line-height:1.5">
+            <strong><svg class="ico"><use href="#i-scale"/></svg></strong> Юридические консультации оказываются адвокатами, зарегистрированными в CPACF согласно Ley 23.187. Наименование конкретных адвокатов предоставляется при заключении договора об оказании юридических услуг.
+          </div>
+          <button class="consult-toggle" onclick="toggleForm(this)">
+            <svg class="ico"><use href="#i-send"/></svg> Отправить задачу &nbsp;<span class="arrow"><svg class="chev"><use href="#i-chevron"/></svg></span>
+          </button>
+          <div class="consult-form">
+            <div class="form-row">
+              <label>Ваше имя</label>
+              <input type="text" placeholder="Имя и фамилия" />
+            </div>
+            <div class="form-row">
+              <label>Контакт (телефон / email)</label>
+              <input type="text" placeholder="Как с вами связаться" />
+            </div>
+            <div class="form-row">
+              <label>Область права</label>
+              <select>
+                <option value="">— Выберите —</option>
+                <option>Регистрация компании</option>
+                <option>Корпоративные споры</option>
+                <option>Трудовые споры</option>
+                <option>Коммерческие договоры</option>
+                <option>Недвижимость</option>
+                <option>Интеллектуальная собственность</option>
+                <option>Другое</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>Опишите вашу ситуацию</label>
+              <textarea placeholder="Кратко изложите суть вопроса…"></textarea>
+            </div>
+            <p class="form-privacy">Ваши данные конфиденциальны. Обрабатываются в соответствии с Ley 25.326. Обращение не создаёт адвокатско-клиентских отношений до подписания соответствующего соглашения.</p>
+            <button class="btn-submit" onclick="submitForm(this)"><svg class="ico"><use href="#i-search"/></svg> ЗАПРОСИТЬ РЕШЕНИЕ</button>
+            <div class="form-success"><div class="icon"><svg class="ico"><use href="#i-check"/></svg></div>Открылся WhatsApp с заявкой — нажмите «Отправить», чтобы завершить обращение.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. МИГРАЦИОННЫЙ КОНСАЛТИНГ -->
+      <div class="service-card" id="card-migr">
+        <div class="card-header">
+          <div class="card-icon"><svg class="ico"><use href="#i-passport"/></svg></div>
+          <h3>Миграционный консалтинг</h3>
+          <p>Сопровождение миграционных процедур в Аргентине с учётом действующего законодательства, включая положения DNU 366/25 и изменения в правоприменительной практике.</p>
+        </div>
+        <div class="card-body">
+          <ul class="service-list">
+            <li>Сопровождение получения ВНЖ (residencia temporaria / permanente) и гражданства Аргентины</li>
+            <li>Консультирование по применению и оспариванию DNU 366/25, включая вопросы конституционности Указа</li>
+            <li>Сопровождение уже начатых процедур натурализации: подача oficio, ходатайств и петиций без отказа от действующего адвоката</li>
+            <li>Получение ответов на ранее направленные запросы и контроль сроков рассмотрения</li>
+            <li>Сопровождение при смене адвоката и передача дела новому представителю</li>
+            <li>Решение вопросов, связанных с задержками и бездействием компетентных органов</li>
+            <li>Комплексное сопровождение семейных миграционных вопросов</li>
+          </ul>
+          <div style="background:#eef4ff;border:1px solid #b8d0f5;border-radius:4px;padding:12px 16px;margin-bottom:16px;font-family:Arial,sans-serif;font-size:12px;color:#1a3a6b;line-height:1.5">
+            <strong><svg class="ico"><use href="#i-document"/></svg> DNU 366/25:</strong> Указ Президента Аргентины DNU 366/25 ввёл изменения в порядок натурализации. Наши адвокаты специализируются на работе в условиях действия Указа и отслеживают судебную практику по вопросам его конституционности.
+          </div>
+          <button class="consult-toggle" onclick="toggleForm(this)">
+            <svg class="ico"><use href="#i-send"/></svg> Отправить задачу &nbsp;<span class="arrow"><svg class="chev"><use href="#i-chevron"/></svg></span>
+          </button>
+          <div class="consult-form">
+            <div class="form-row">
+              <label>Ваше имя</label>
+              <input type="text" placeholder="Имя и фамилия" />
+            </div>
+            <div class="form-row">
+              <label>Контакт (телефон / email)</label>
+              <input type="text" placeholder="Как с вами связаться" />
+            </div>
+            <div class="form-row">
+              <label>Тип миграционного вопроса</label>
+              <select>
+                <option value="">— Выберите —</option>
+                <option>Сопровождение получения ВНЖ</option>
+                <option>Гражданство / натурализация</option>
+                <option>Вопросы по DNU 366/25</option>
+                <option>Смена адвоката / продолжение процедуры</option>
+                <option>Задержки в компетентных органах</option>
+                <option>Другое</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>Опишите вашу ситуацию</label>
+              <textarea placeholder="Кратко опишите текущий статус вашего дела и вопросы, которые вас интересуют…"></textarea>
+            </div>
+            <p class="form-privacy">Ваши данные конфиденциальны. Обрабатываются в соответствии с Ley 25.326. Обращение не создаёт адвокатско-клиентских отношений до подписания соответствующего соглашения.</p>
+            <button class="btn-submit" onclick="submitForm(this)"><svg class="ico"><use href="#i-search"/></svg> ЗАПРОСИТЬ РЕШЕНИЕ</button>
+            <div class="form-success"><div class="icon"><svg class="ico"><use href="#i-check"/></svg></div>Открылся WhatsApp с заявкой — нажмите «Отправить», чтобы завершить обращение.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /services-grid -->
+  </section>
+
+</div><!-- /page-services -->
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: АССОЦИАЦИЯ РУССКОЯЗЫЧНОГО СООБЩЕСТВА
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-assoc-ru">
+
+  <div class="page-hero">
+    <div class="breadcrumb" onclick="showPage('home')">← Главная</div>
+    <div style="display:inline-block;background:rgba(196,154,60,.2);border:1px solid rgba(196,154,60,.4);color:var(--gold-light);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:20px;font-family:Arial,sans-serif"><svg class="ico"><use href="#i-star"/></svg> Первая в Латинской Америке</div>
+    <h1><strong>Ассоциация русскоязычного сообщества</strong> в Аргентине</h1>
+    <p>Первая ассоциация русскоязычных жителей в Латинской Америке. Созданная в Буэнос-Айресе, она объединяет выходцев из России, Украины, Беларуси, Казахстана и других стран постсоветского пространства.</p>
+  </div>
+
+  <!-- МИССИЯ -->
+  <section>
+    <div class="section-label">Миссия и цели</div>
+    <h2>Интеграция, <strong>культура</strong> и взаимная поддержка</h2>
+
+    <div class="mission-block">
+      <div class="mission-text">
+        <h3>Наша миссия</h3>
+        <p>Ассоциация создана для содействия успешной интеграции русскоязычных жителей в аргентинское общество при сохранении культурной идентичности, языка и связи с историческим наследием стран происхождения.</p>
+        <p>Мы строим мост между культурами — между богатейшим наследием русскоязычного мира и живой, открытой культурой Аргентины. Наша работа основана на уважении к каждому человеку, вне зависимости от его гражданства, политических взглядов и обстоятельств переезда.</p>
+        <h3 style="margin-top:24px">Культурное наследие</h3>
+        <p>Россия и Аргентина — две страны с богатейшей культурной, научной и художественной традицией. Мы убеждены, что диалог между этими культурами обогащает обе стороны. Ассоциация чтит литературное, музыкальное и художественное наследие русскоязычного мира и создаёт пространство для его знакомства с культурой Аргентины.</p>
+      </div>
+      <div>
+        <h3 style="margin-bottom:16px;font-size:18px;color:var(--navy)">Цели ассоциации</h3>
+        <ul class="goals-list">
+          <li><span class="goal-num">1</span><span>Содействие интеграции русскоязычных жителей в аргентинское общество, экономику и правовое пространство</span></li>
+          <li><span class="goal-num">2</span><span>Сохранение и популяризация культурного, языкового и исторического наследия стран русскоязычного мира</span></li>
+          <li><span class="goal-num">3</span><span>Организация культурных, образовательных и деловых мероприятий для укрепления связей внутри сообщества</span></li>
+          <li><span class="goal-num">4</span><span>Развитие культурного обмена между русскоязычным сообществом и аргентинским обществом</span></li>
+          <li><span class="goal-num">5</span><span>Оказание взаимной поддержки членам сообщества в вопросах обустройства, занятости и профессиональной реализации</span></li>
+          <li><span class="goal-num">6</span><span>Представительство интересов сообщества перед государственными органами и международными организациями</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- МЕРОПРИЯТИЯ -->
+  <section class="gray">
+    <div class="section-label">Мероприятия</div>
+    <h2>Совместные <strong>события</strong></h2>
+    <p class="section-intro">Анонсы мероприятий появятся в ближайшее время. Следите за обновлениями или оставьте контакт, чтобы получать приглашения.</p>
+
+    <ul class="events-list">
+      <li class="event-item">
+        <div class="event-date">
+          <div class="day">—</div>
+          <div class="month">Скоро</div>
+        </div>
+        <div class="event-info">
+          <h4>Вечер культурного знакомства: Россия и Аргентина</h4>
+          <p>Совместный вечер с аргентинскими партнёрами — музыка, поэзия, гастрономия двух культур.</p>
+          <span class="soon"><svg class="ico"><use href="#i-calendar"/></svg> Анонс готовится</span>
+        </div>
+      </li>
+      <li class="event-item">
+        <div class="event-date">
+          <div class="day">—</div>
+          <div class="month">Скоро</div>
+        </div>
+        <div class="event-info">
+          <h4>Деловая встреча: возможности для русскоязычного бизнеса в Аргентине</h4>
+          <p>Нетворкинг-сессия для предпринимателей, фрилансеров и специалистов.</p>
+          <span class="soon"><svg class="ico"><use href="#i-calendar"/></svg> Анонс готовится</span>
+        </div>
+      </li>
+      <li class="event-item">
+        <div class="event-date">
+          <div class="day">—</div>
+          <div class="month">Скоро</div>
+        </div>
+        <div class="event-info">
+          <h4>Правовой семинар: жизнь в Аргентине — права и возможности</h4>
+          <p>Информационная встреча с адвокатами по вопросам ВНЖ, бизнеса и повседневных правовых вопросов.</p>
+          <span class="soon"><svg class="ico"><use href="#i-calendar"/></svg> Анонс готовится</span>
+        </div>
+      </li>
+    </ul>
+
+    <div style="margin-top:28px;background:var(--white);border:1px solid var(--border);border-radius:6px;padding:24px">
+      <h4 style="font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px"><svg class="ico"><use href="#i-mail"/></svg> Получать анонсы мероприятий</h4>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <input type="text" placeholder="Ваш email" style="flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--border);border-radius:4px;font-family:Arial,sans-serif;font-size:14px" />
+        <button class="btn-primary" onclick="alert('Спасибо! Мы добавим вас в список рассылки.')">Подписаться</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ДОСКА ОБЪЯВЛЕНИЙ -->
+  <section>
+    <div class="section-label">Доска объявлений</div>
+    <div class="board-header">
+      <h2 style="margin-bottom:0">Предложения <strong>членов сообщества</strong></h2>
+      <button class="btn-outline" onclick="alert('Форма подачи объявления появится в ближайшее время. Пожалуйста, свяжитесь с нами напрямую.')"><svg class="ico"><use href="#i-plus"/></svg> Добавить вакансию</button>
+    </div>
+    <p style="font-family:Arial,sans-serif;font-size:14px;color:#5a6a7e">Площадка для публикации предложений услуг и вакансий от членов русскоязычного сообщества в Аргентине. Объявления публикуются после проверки модератором.</p>
+  </section>
+
+</div><!-- /page-assoc-ru -->
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: АРГА
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-assoc-arga">
+
+  <div class="page-hero">
+    <div class="breadcrumb" onclick="showPage('home')">← Главная</div>
+    <div style="display:inline-block;background:rgba(26,86,168,.3);border:1px solid rgba(100,160,255,.4);color:#a0c4ff;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:20px;font-family:Arial,sans-serif"><svg class="ico"><use href="#i-shield"/></svg> Консультант ООН · UN ID: 1232417</div>
+    <h1><strong>АРГА</strong> — Международная правозащитная ассоциация</h1>
+    <p>ARGA (Asylum Research & Global Assistance) — международная организация, зарегистрированная в Секретариате ООН. Экспертно-аналитическая и правозащитная деятельность в более чем 15 странах мира.</p>
+  </div>
+
+  <!-- О АРГА -->
+  <section>
+    <div class="arga-un-badge">
+      <div class="un-icon"><svg class="ico"><use href="#i-shield"/></svg></div>
+      <div class="un-text">
+        <strong>Консультант Секретариата ООН</strong>
+        UN Secretariat Registration ID: 1232417 · Зарегистрирована как Associations loi du 1er juillet 1901, RNA W641013804
+      </div>
+    </div>
+
+    <div class="arga-stat-grid">
+      <div class="arga-stat"><div class="num">160+</div><div class="lbl">Успешных кейсов</div></div>
+      <div class="arga-stat"><div class="num">15+</div><div class="lbl">Стран мониторинга</div></div>
+      <div class="arga-stat"><div class="num">10</div><div class="lbl">Представительств</div></div>
+      <div class="arga-stat"><div class="num">250+</div><div class="lbl">Аналитических материалов</div></div>
+      <div class="arga-stat"><div class="num">10 000+</div><div class="lbl">Изученных судебных решений</div></div>
+    </div>
+
+    <div class="mission-block">
+      <div class="mission-text">
+        <h3>Миссия АРГА</h3>
+        <p>ARGA — это международная исследовательская и правозащитная организация, объединяющая адвокатов, правозащитников, исследователей и экспертов из разных стран для систематического анализа судебных решений, процессуальных стандартов и правоприменительной практики.</p>
+        <p>Миссия АРГА состоит в обеспечении доступа к международной правовой защите для частных лиц и организаций, оказавшихся в кризисных институциональных ситуациях, — включая международный розыск, угрозу экстрадиции, нарушения прав человека и активы под санкционным давлением.</p>
+        <p>Организация ведёт деятельность строго в рамках международного права, применяя механизмы ООН, ЕСПЧ, Интерпола и других международных институтов.</p>
+      </div>
+      <div>
+        <h3 style="margin-bottom:16px;font-size:18px;color:var(--navy)">Цели и направления</h3>
+        <ul class="goals-list">
+          <li><span class="goal-num">1</span><span>Мониторинг и анализ судебной практики в постсоветских и переходных государствах</span></li>
+          <li><span class="goal-num">2</span><span>Правовая и аналитическая поддержка при исключении из баз данных Интерпола через Комиссию по контролю за файлами (CCF)</span></li>
+          <li><span class="goal-num">3</span><span>Подготовка индивидуальных обращений в Комитет ООН по правам человека (КПЧ ООН) в рамках МПГПП</span></li>
+          <li><span class="goal-num">4</span><span>Ведение дел в Европейском суде по правам человека, Международном уголовном суде и международном арбитраже</span></li>
+          <li><span class="goal-num">5</span><span>Разработка и публикация аналитических докладов, практических руководств и правовых исследований</span></li>
+          <li><span class="goal-num">6</span><span>Содействие в получении убежища, разработка антиэкстрадиционных стратегий</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЭКСПЕРТНАЯ СЕТЬ -->
+  <section class="gray">
+    <div class="section-label">Экспертная сеть</div>
+    <h2>Эксперты во <strong>всех ключевых юрисдикциях</strong></h2>
+    <p class="section-intro">АРГА располагает широкой сетью партнёрских адвокатов и экспертов-практиков во всех крупных странах мира, охватывая основные отрасли права и специализируясь на вопросах международной защиты.</p>
+
+    <div class="expertise-grid">
+      <div class="expertise-item">
+        <div class="ei-icon"><svg class="ico"><use href="#i-search"/></svg></div>
+        <h4>Интерпол / CCF</h4>
+        <p>Оспаривание Red Notices, работа с Комиссией по контролю файлов, удаление из международных баз розыска.</p>
+      </div>
+      <div class="expertise-item">
+        <div class="ei-icon"><svg class="ico"><use href="#i-shield"/></svg></div>
+        <h4>Механизмы ООН</h4>
+        <p>Обращения в КПЧ ООН, УВКБ ООН, Рабочую группу по произвольным задержаниям (UN WGAD) и другие органы.</p>
+      </div>
+      <div class="expertise-item">
+        <div class="ei-icon"><svg class="ico"><use href="#i-bank"/></svg></div>
+        <h4>Международные суды</h4>
+        <p>ЕСПЧ, МУС, международный арбитраж (ICSID, ICC, UNCITRAL, PCA), Международный суд ООН.</p>
+      </div>
+      <div class="expertise-item">
+        <div class="ei-icon"><svg class="ico"><use href="#i-plane"/></svg></div>
+        <h4>Убежище и экстрадиция</h4>
+        <p>Подготовка дел о предоставлении убежища, антиэкстрадиционные стратегии в более чем 15 странах.</p>
+      </div>
+      <div class="expertise-item">
+        <div class="ei-icon"><svg class="ico"><use href="#i-briefcase"/></svg></div>
+        <h4>Международное корпоративное право</h4>
+        <p>Структурирование холдингов, защита активов, санкционный комплаенс, трансграничные сделки M&A.</p>
+      </div>
+      <div class="expertise-item">
+        <div class="ei-icon"><svg class="ico"><use href="#i-shield"/></svg></div>
+        <h4>Защита активов</h4>
+        <p>Защита от замораживания активов, санкционного давления, незаконной национализации и конфискации.</p>
+      </div>
+      <div class="expertise-item">
+        <div class="ei-icon"><svg class="ico"><use href="#i-clipboard"/></svg></div>
+        <h4>Мониторинг правосудия</h4>
+        <p>Систематический анализ судебных решений и правоприменительной практики через ARGA Observatory.</p>
+      </div>
+      <div class="expertise-item">
+        <div class="ei-icon"><svg class="ico"><use href="#i-globe"/></svg></div>
+        <h4>Присутствие в 10 странах</h4>
+        <p>США · Великобритания · ОАЭ · Сингапур · Мексика · Аргентина · Греция · Германия · Испания · Франция.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПРОЕКТЫ АРГА -->
+  <section>
+    <div class="section-label">Экосистема АРГА</div>
+    <h2>Исследования и <strong>аналитика</strong></h2>
+    <p class="section-intro">АРГА развивает несколько специализированных платформ, объединённых общей правозащитной миссией.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:28px">
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:28px">
+        <div style="font-size:26px;margin-bottom:12px;color:var(--gold)"><svg class="ico"><use href="#i-search"/></svg></div>
+        <h4 style="font-family:Arial,sans-serif;font-weight:700;color:var(--navy);margin-bottom:8px">ARGA Observatory</h4>
+        <p style="font-family:Arial,sans-serif;font-size:13px;color:#5a6a7e;line-height:1.7">Международная исследовательская платформа для мониторинга и анализа судебной практики. Более 10 000 изученных решений и 250+ аналитических материалов.</p>
+        <a href="https://argaobservatory.org/en/" target="_blank" style="color:var(--gold);font-family:Arial,sans-serif;font-size:13px;font-weight:700;display:inline-block;margin-top:12px">argaobservatory.org →</a>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:28px">
+        <div style="font-size:26px;margin-bottom:12px;color:var(--gold)"><svg class="ico"><use href="#i-scale"/></svg></div>
+        <h4 style="font-family:Arial,sans-serif;font-weight:700;color:var(--navy);margin-bottom:8px">ARGA (asylum.consulting)</h4>
+        <p style="font-family:Arial,sans-serif;font-size:13px;color:#5a6a7e;line-height:1.7">Основное направление международной правовой защиты: Интерпол, ООН, ЕСПЧ. Более 160 успешных кейсов.</p>
+        <a href="https://asylum.consulting/" target="_blank" style="color:var(--gold);font-family:Arial,sans-serif;font-size:13px;font-weight:700;display:inline-block;margin-top:12px">asylum.consulting →</a>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:28px">
+        <div style="font-size:26px;margin-bottom:12px;color:var(--gold)"><svg class="ico"><use href="#i-bulb"/></svg></div>
+        <h4 style="font-family:Arial,sans-serif;font-weight:700;color:var(--navy);margin-bottom:8px">ARGA Solution</h4>
+        <p style="font-family:Arial,sans-serif;font-size:13px;color:#5a6a7e;line-height:1.7">Коммерческое направление группы АРГА: правовые и финансовые решения для бизнеса в сфере международных рисков, санкций и комплаенса.</p>
+        <a href="https://arga-solution.com/" target="_blank" style="color:var(--gold);font-family:Arial,sans-serif;font-size:13px;font-weight:700;display:inline-block;margin-top:12px">arga-solution.com →</a>
+      </div>
+    </div>
+
+    <div class="disclaimer" style="margin-top:36px">
+      Полный перечень услуг АРГА в регионе Латинской Америки будет представлен в ближайшее время. Для предварительного обращения, пожалуйста, воспользуйтесь контактами ниже.
+    </div>
+  </section>
+
+</div><!-- /page-assoc-arga -->
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: CONTACTS
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-contacts">
+
+  <div class="page-hero">
+    <div class="breadcrumb" onclick="showPage('home')">← Главная</div>
+    <h1>Свяжитесь с <strong>нами</strong></h1>
+    <p>Опишите вашу ситуацию — мы подберём подходящее решение и свяжемся с вами.</p>
+  </div>
+
+  <section>
+    <div class="contacts-grid">
+      <div class="contact-item">
+        <div class="icon"><svg class="ico"><use href="#i-pin"/></svg></div>
+        <h4>Адрес</h4>
+        <p>Буэнос-Айрес, Аргентина<br><span style="font-size:13px;color:#8896a8">Точный адрес офиса по запросу</span></p>
+      </div>
+      <div class="contact-item">
+        <div class="icon"><svg class="ico"><use href="#i-chat"/></svg></div>
+        <h4>WhatsApp</h4>
+        <a href="https://wa.me/541176723800">+54 11 7672-3800</a>
+      </div>
+    </div>
+
+    <!-- GENERAL FORM -->
+    <div id="cnt-form-wrap" style="max-width:600px;margin-top:56px">
+      <h3 style="font-size:22px;color:var(--navy);margin-bottom:8px">Написать нам</h3>
+      <p style="font-family:Arial,sans-serif;font-size:14px;color:#5a6a7e;margin-bottom:24px">Опишите вашу ситуацию, и мы свяжемся с вами.</p>
+
+      <div class="form-row">
+        <label>Имя и фамилия</label>
+        <input type="text" id="cnt-name" placeholder="Ваше имя" />
+      </div>
+      <div class="form-row">
+        <label>Контакт (телефон / email)</label>
+        <input type="text" id="cnt-contact" placeholder="Предпочтительный способ связи" />
+      </div>
+      <div class="form-row">
+        <label>Направление</label>
+        <select id="cnt-topic">
+          <option value="">— Выберите —</option>
+          <option>Бизнес-консалтинг</option>
+          <option>Government Relations (GR)</option>
+          <option>Государственные закупки</option>
+          <option>Юридический консалтинг</option>
+          <option>Миграционный консалтинг</option>
+          <option>Ассоциация русскоязычного сообщества</option>
+          <option>АРГА / международная защита</option>
+          <option>Другое</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Ваш вопрос или ситуация</label>
+        <textarea id="cnt-msg" placeholder="Кратко опишите, чем мы можем помочь…" style="min-height:120px"></textarea>
+      </div>
+      <p class="form-privacy" style="margin-bottom:16px">Персональные данные обрабатываются конфиденциально в соответствии с Ley 25.326 (Ley de Protección de los Datos Personales). Отправка сообщения не создаёт правовых отношений до подписания договора.</p>
+      <button class="btn-submit" onclick="submitContactForm()"><svg class="ico"><use href="#i-search"/></svg> ЗАПРОСИТЬ РЕШЕНИЕ</button>
+      <div id="cnt-success" style="display:none;text-align:center;padding:20px;color:var(--success);font-family:Arial,sans-serif">
+        <div style="font-size:28px;margin-bottom:8px"><svg class="ico" style="width:28px;height:28px"><use href="#i-check"/></svg></div>
+        Открылся WhatsApp с заявкой — нажмите «Отправить», чтобы завершить обращение.
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-contacts -->
+
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════ -->
+<footer>
+  <div>
+    <div class="foot-logo">Экспертный и консалтинговый центр</div>
+    <p>Профессиональное юридическое, бизнес- и миграционное сопровождение в Буэнос-Айресе и Аргентине.</p>
+    <p style="margin-top:12px;font-size:11px">Юридические услуги оказываются адвокатами, зарегистрированными в CPACF (Ley 23.187).</p>
+  </div>
+  <div>
+    <h4>Услуги</h4>
+    <ul>
+      <li><a onclick="showPage('services');scrollToService('biz')">Бизнес-консалтинг</a></li>
+      <li><a onclick="showPage('services');scrollToService('rel')">Government Relations (GR)</a></li>
+      <li><a onclick="showPage('services');scrollToService('gov')">Государственные закупки</a></li>
+      <li><a onclick="showPage('services');scrollToService('legal')">Юридический консалтинг</a></li>
+      <li><a onclick="showPage('services');scrollToService('migr')">Миграционный консалтинг</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Ассоциации</h4>
+    <ul>
+      <li><a onclick="showPage('assoc-ru')">Ассоциация русскоязычного сообщества</a></li>
+      <li><a onclick="showPage('assoc-arga')">АРГА — правозащитная ассоциация</a></li>
+    </ul>
+    <h4 style="margin-top:20px">Партнёры</h4>
+    <ul>
+      <li><a href="https://argaobservatory.org/en/" target="_blank">ARGA Observatory</a></li>
+      <li><a href="https://asylum.consulting/" target="_blank">asylum.consulting</a></li>
+      <li><a href="https://arga-solution.com/" target="_blank">ARGA Solution</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Контакты</h4>
+    <ul>
+      <li><a href="https://wa.me/541176723800"><svg class="ico"><use href="#i-chat"/></svg> WhatsApp</a></li>
+    </ul>
+    <p style="margin-top:20px;font-size:11px;line-height:1.6">Буэнос-Айрес · Аргентина</p>
+  </div>
+</footer>
+<div class="foot-bottom">
+  © 2025–2026 Экспертный и консалтинговый центр · Buenos Aires · Argentina · Вся информация носит общий характер и не является юридической консультацией
+</div>
+
+
+<script>
+  // ── PAGE ROUTING ──
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + name);
+    if (target) { target.classList.add('active'); window.scrollTo(0,0); }
+    // close mobile menu
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  function scrollToService(id) {
+    const map = { biz:'card-biz', rel:'card-rel', gov:'card-gov', legal:'card-legal', migr:'card-migr' };
+    setTimeout(() => {
+      const el = document.getElementById(map[id]);
+      if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+    }, 100);
+  }
+
+  // ── BURGER ──
+  function toggleBurger() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // ── CONSULT FORMS ──
+  function toggleForm(btn) {
+    const form = btn.nextElementSibling;
+    const isOpen = form.classList.contains('open');
+    form.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+  }
+
+  // ── WHATSAPP AUTO-SEND ──
+  // Браузер не может отправить сообщение в WhatsApp без участия пользователя
+  // (это требует WhatsApp Business API с подтверждённым бизнес-аккаунтом и сервером).
+  // Поэтому мы открываем чат с номером компании и заранее заполняем текст заявки —
+  // клиенту остаётся только нажать «Отправить» внутри WhatsApp.
+  const WHATSAPP_NUMBER = '541176723800';
+
+  function openWhatsAppWithData(title, fields) {
+    let text = 'Заявка с сайта';
+    if (title) text += ' — ' + title;
+    text += ':\n';
+    fields.forEach(f => { if (f.value) text += f.label + ': ' + f.value + '\n'; });
+    const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text);
+    window.open(url, '_blank');
+  }
+
+  function collectFields(container) {
+    const fields = [];
+    let hasVal = false;
+    container.querySelectorAll('.form-row').forEach(row => {
+      const labelEl = row.querySelector('label');
+      const fieldEl = row.querySelector('input, textarea, select');
+      if (!fieldEl) return;
+      const value = fieldEl.value.trim();
+      if (value) { hasVal = true; fields.push({ label: labelEl ? labelEl.textContent.trim() : '', value }); }
+    });
+    return { fields, hasVal };
+  }
+
+  function submitForm(btn) {
+    const card = btn.closest('.service-card');
+    const title = card && card.querySelector('h3') ? card.querySelector('h3').textContent.trim() : '';
+    const { fields, hasVal } = collectFields(btn.closest('.consult-form'));
+    if (!hasVal) { alert('Пожалуйста, заполните хотя бы одно поле.'); return; }
+
+    openWhatsAppWithData(title, fields);
+
+    btn.style.display = 'none';
+    btn.nextElementSibling.style.display = 'block';
+  }
+
+  function submitContactForm() {
+    const { fields, hasVal } = collectFields(document.getElementById('cnt-form-wrap'));
+    if (!hasVal) { alert('Пожалуйста, заполните хотя бы одно поле.'); return; }
+
+    openWhatsAppWithData('Контакты', fields);
+
+    document.querySelector('#page-contacts .btn-submit').style.display = 'none';
+    document.getElementById('cnt-success').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
